@@ -1,0 +1,29 @@
+{
+  "name": "node-example-websec",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Example app for learning websecurity fundamentals",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naugtur/node-example-websec.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naugtur/node-example-websec/issues"
+  },
+  "homepage": "https://github.com/naugtur/node-example-websec#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
