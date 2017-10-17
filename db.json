@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "existing entry"
+    },
+    {
+      "id": "1970d07b-4d1d-4427-8d57-a8ee824f3c3c",
+      "title": "there is no spoon"
+    },
+    {
+      "id": "e3022d80-24b5-4490-a06c-74dc687fae17",
+      "title": "my spoon is too big"
+    }
+  ]
+}

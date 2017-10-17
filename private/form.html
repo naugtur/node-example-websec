@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>post</title>
+</head>
+<body>
+  <form action="/private/add" method="POST">
+    <input type="text" name="title" placeholder="title">
+    <input type="submit" value="ok">
+  </form>
+  <ul class="posts">
+
+  </ul>
+  <script>
+  const posts = document.querySelector('.posts')
+  fetch('/private/posts', {credentials: 'include'})
+    .then(response=>response.json())
+    .then(body=>body.map(item => posts.innerHTML+=`<li>${item.title}`))
+  </script>
+</body>
+</html>
