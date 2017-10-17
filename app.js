@@ -1,5 +1,8 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const uuidV4 = require('uuid/v4')
+const db = require('./db') //fake database
 
 const app = express()
 
@@ -23,6 +26,17 @@ app.use('/private', (req, res, next) => {
   } else {
     next()
   }
+})
+
+app.post('/private/add', bodyParser.urlencoded(), (req, res) => {
+  db.get('posts')
+    .push({ id: uuidV4(), title: req.body.title})
+    .write()
+  res.redirect('/private/form.html')
+})
+app.get('/private/posts', (req, res) => {
+  res.json(db.get('posts')
+    .value())
 })
 
 // The walled garden
