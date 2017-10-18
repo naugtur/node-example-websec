@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const crypto = require('crypto')
 const bodyParser = require('body-parser')
 const uuidV4 = require('uuid/v4')
+var csrf = require('csurf')
 const db = require('./db') // fake database
 
 const app = express()
@@ -33,6 +34,8 @@ app.get('/public/login', (req, res) => {
   }
 })
 
+var csrfProtection = csrf({ cookie: false, sessionKEey:'session' })
+
 // I know we're implementing everything to learn how, but cookie parsing... come on.
 app.use('/private', cookieParser())
 
@@ -47,15 +50,15 @@ app.use('/private', (req, res, next) => {
   }
 })
 
-app.post('/private/add', bodyParser.urlencoded(), (req, res) => {
+app.post('/private/add', bodyParser.urlencoded(), csrfProtection, (req, res) => {
   db.get('posts')
     .push({ id: uuidV4(), title: req.body.title})
     .write()
   res.redirect('/private/form.html')
 })
-app.get('/private/posts', (req, res) => {
-  res.json(db.get('posts')
-    .value())
+app.get('/private/posts', csrfProtection, (req, res) => {
+  res.json({ csrfToken: req.csrfToken(), posts: db.get('posts')
+    .value()})
 })
 
 // The walled garden

@@ -7,8 +7,9 @@
   <title>post</title>
 </head>
 <body>
-  <form action="/private/add" method="POST">
+  <form action="http://localhost:1337/private/add" method="POST">
     <input type="text" name="title" placeholder="title">
+    <input type="hidden" value="" name="_csrf" class="csrfInput">
     <input type="submit" value="ok">
   </form>
   <ul class="posts">
@@ -16,9 +17,14 @@
   </ul>
   <script>
   const posts = document.querySelector('.posts')
+  const csrfInput = document.querySelector('.csrfInput')
   fetch('/private/posts', {credentials: 'include'})
-    .then(response=>response.json())
-    .then(body=>body.map(item => posts.innerHTML+=`<li>${item.title}`))
+    .then(response => response.json())
+    .then(body => {
+      csrfInput.value = body.csrfToken
+      body.posts.map(item => posts.innerHTML += `<li>${item.title}`)
+    })
+
   </script>
 </body>
 </html>
